@@ -3,6 +3,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from .models import *
 from .serializers import*
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from datetime import time
 
 
 
@@ -142,3 +145,11 @@ class CustomerOption(viewsets.ModelViewSet):
         else:
             status_code = status.HTTP_400_BAD_REQUEST
             return Response({"message": "Product data Not found", "status": status_code})
+        
+class CustomerPurchasingListAPIView(APIView):
+    def get(self, request, customer_id):
+        start_time = time(0, 0)  # 00:00
+        end_time = time(23, 59)  # 23:00
+        purchasing = Product.objects.filter(customer_id=customer_id, create_time__time__range=(start_time, end_time))
+        serializer = ProductSerializer(purchasing, many=True)
+        return Response({"Haridorning haridlari haqida qisqacha ma'lumot":serializer.data})

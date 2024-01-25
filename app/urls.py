@@ -6,4 +6,6 @@ router = DefaultRouter()
 router.register('product', GetMethod, basename='product')
 router.register('category', CategoryOption, basename='category')
 router.register('customer', CustomerOption, basename='customer')
-urlpatterns = router.urls
+urlpatterns =[
+    path('customers/<int:customer_id>/product', CustomerPurchasingListAPIView.as_view()),
+] + router.urls

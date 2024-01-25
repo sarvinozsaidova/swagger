@@ -11,6 +11,7 @@ class Product(models.Model):
     name = models.CharField(max_length=30, null=True,blank=True)
     price = models.CharField(max_length=40,null=True, blank=True)
     quantity = models.IntegerField(blank=True, null=True)
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='Ishlab chiqarilgan vaqti')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
